@@ -1,0 +1,119 @@
+body{
+    background-color: hsl(30, 54%, 90%);
+    display:flex;
+    text-align: left;
+    flex-direction: column;
+    padding-left: 16rem;
+    padding-right: 16rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+}
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3 {
+    font-family: 'Young Serif', serif;
+}
+h2,h3{
+    color: hsl(14, 45%, 36%);
+}
+p{
+    color: hsl(24, 5%, 18%);
+    line-height: 1.5;
+}
+ol{
+    padding-left: 1.5rem;
+}
+li::marker {
+    color: brown;
+}
+li{
+margin-bottom: 0.5rem;
+color: hsl(30, 10%, 34%)
+}
+.line {
+    border-bottom: 1px solid hsl(30, 18%, 87%);
+    margin: 20px 0;
+}
+.card{
+    flex: 1;
+    border-radius: 20rem;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.Recipe{
+    background-color: white;
+    padding: 3rem;
+}
+.Recipe p{
+    text-emphasis-color: hsl(14, 45%, 36%);
+}
+
+.PrepTime{
+    background-color: hsl(330, 100%, 98%);
+    padding: 1rem;
+}
+.PrepTime li::marker{
+    color: hsl(332, 51%, 32%);
+}
+.PrepTime h4{
+    color: hsl(332, 51%, 32%);
+}
+.Ingredients{
+    background-color: white;
+    padding: 1rem;
+}
+
+.instructions{
+    background-color: hsl(330, 100%, 98%);
+    padding: 1rem;
+}
+
+.Nutrition{
+    padding: 1rem;
+}
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+td{
+    border-bottom: 1px solid hsl(30, 18%, 87%);
+    padding: 12px 10px;
+    text-align: left;
+    color: hsl(30, 10%, 34%)
+}
+tr:last-child td {
+    border-bottom: none;
+}
+td:first-child {
+    width: 50%;
+}
+
+td:last-child {
+    width: 50%;
+    text-align: left;
+}
+.brown-header{
+    background-color: white;
+    color: hsl(14, 45%, 36%);
+    text-align: center;
+}
+@media (max-width: 500px) {
+    .card {
+        padding: 1rem;
+    }
+
+    td {
+        padding: 8px;
+    }
+}
