@@ -1,0 +1,466 @@
+/* =============================== 
+   ROOT VARIABLES (SITE COLORS + SETTINGS)
+   =============================== */
+
+/* :root = global variables you can reuse anywhere */
+:root{
+  --nav-bg:#2e3a59;        /* nav bar background */
+  --header-bg:#2e3a59;     /* header + footer color */
+  --accent:#c47a1b;        /* main highlight color (buttons, borders) */
+  --page-bg:#f9f9fb;       /* page background */
+  --text:#333;             /* default text color */
+  --card-width:340px;      /* standard card size */
+  --gap:1rem;              /* spacing between elements */
+}
+
+
+/* ===============================
+   GLOBAL RESET / BASIC SETTINGS
+   =============================== */
+
+/* applies to EVERYTHING */
+*{
+  box-sizing:border-box; /* keeps padding inside width (VERY IMPORTANT) */
+  transition: all 0.1s ease; /* smooth animations for hover, etc */
+}
+
+
+/* ===============================
+   INTRO SCREEN (BLUEPRINT ANIMATION)
+   =============================== */
+
+/* full screen intro overlay */
+#intro {
+  position: fixed;   /* stays on screen */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;     /* full screen height */
+  background: #0d3b66; /* blueprint blue */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;     /* sits above EVERYTHING */
+}
+
+/* text that appears after house builds */
+.intro-text {
+  margin-top: 1rem;
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  opacity: 0; /* hidden at first */
+  transform: translateY(20px); /* starts slightly down */
+
+  animation: textReveal 1s ease forwards;
+  animation-delay: 1.0s; /* shows AFTER animation starts */
+}
+
+/* animation for text fade + slide up */
+@keyframes textReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* SVG house size */
+.house-svg {
+  width: 200px;
+  height: 200px;
+}
+
+/* blueprint line drawing effect */
+.line {
+  fill: none;
+  stroke: white;
+  stroke-width: 2;
+
+  /* trick to "draw" lines */
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+
+  animation: draw 2s ease forwards;
+}
+
+/* line drawing animation */
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0; /* reveals the line */
+  }
+}
+
+/* real house (hidden first) */
+.house-fill {
+  opacity: 0;
+  fill: #f4a261; /* house color */
+
+  animation: showHouse 1s ease forwards;
+  animation-delay: 2s; /* appears AFTER lines finish */
+}
+
+/* show the house */
+@keyframes showHouse {
+  to {
+    opacity: 1;
+  }
+}
+
+/* fade out intro screen */
+#intro.fade-out {
+  animation: fadeOut 1s ease forwards;
+  animation-delay: 3s;
+}
+
+/* fade animation */
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden; /* removes it */
+  }
+}
+
+/* allows scrolling AFTER intro finishes */
+body.loaded {
+  overflow: auto;
+}
+
+
+/* ===============================
+   BODY (MAIN PAGE SETUP)
+   =============================== */
+
+body{
+  margin:0; /* remove default spacing */
+  font-family:'Segoe UI',sans-serif;
+  background-color:var(--page-bg);
+  color:var(--text);
+  line-height:1.6;
+
+  display:flex;
+  flex-direction:column; /* stack everything vertically */
+  min-height:100vh; /* full screen height */
+}
+
+
+/* ===============================
+   HEADER (TOP TITLE BAR)
+   =============================== */
+
+header{
+  background:var(--header-bg);
+  color:white;
+  text-align:center;
+  padding:1.25rem 1rem;
+}
+
+header h1{
+  margin:0;
+  font-size:1.6rem;
+}
+
+
+/* ===============================
+   NAVIGATION BAR (LINKS)
+   =============================== */
+
+.hero-nav{
+  display:flex; /* puts links in a row */
+  justify-content:center;
+  gap:.75rem;
+  padding: 0.5rem;
+  background:var(--nav-bg);
+}
+
+/* nav links */
+.hero-nav a{
+  color:white;
+  text-decoration:none;
+  padding:.5rem 1rem;
+  border-radius:.35rem;
+  font-size:.9rem;
+
+  background: rgba(255,255,255,0.1);
+  transition: 0.3s;
+}
+
+/* hover effect */
+.hero-nav a:hover{
+  background:rgba(255,255,255,0.25);
+}
+
+
+/* ===============================
+   HERO (BIG IMAGE BANNER)
+   =============================== */
+
+.hero{
+  position:relative;
+
+  /* background image */
+  background:url("https://images.unsplash.com/photo-1565373671233-564ed7aeca45?auto=format&fit=crop&w=1400&q=60")
+  center/cover no-repeat;
+
+  height:180px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  color:white;
+
+  /* helps text readability */
+  text-shadow:0 2px 4px rgba(0,0,0,.5);
+}
+
+/* overlay (currently invisible but useful later) */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0);
+}
+
+/* hero text */
+.hero h2{
+  margin:0;
+  padding:.3rem .8rem;
+  background:rgba(0,0,0,.45);
+  border-radius:6px;
+  font-size:1.1rem;
+  position:relative;
+}
+
+
+/* ===============================
+   MAIN CONTENT AREA
+   =============================== */
+
+main{
+  flex:1; /* fills space between header + footer */
+  padding:2rem .5rem;
+  max-width:1600px;
+  margin:auto; /* center content */
+}
+
+
+/* ===============================
+   SERVICES (CARD LAYOUT)
+   =============================== */
+
+.services{
+  display:flex;
+  justify-content:center;
+  gap:2rem;
+  margin-top:2rem;
+  flex-wrap:wrap; /* wraps on smaller screens */
+}
+
+
+/* ===============================
+   CARD (MAIN BOX COMPONENT)
+   =============================== */
+
+.card{
+  background:white;
+  border-radius:8px;
+  border-top:4px solid var(--accent);
+
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  padding:3rem;
+
+  flex:1;
+  min-width:268px;
+
+  display:flex;
+  flex-direction:column;
+  gap:.6rem;
+
+  transition:.25s;
+}
+
+/* hover lift effect */
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
+}
+
+.card p{
+  line-height:1.5rem;
+}
+
+.card h3{
+  text-align:center;
+}
+
+.card h4{
+  margin:0;
+  text-align:center;
+  color:var(--accent);
+}
+
+/* inputs inside cards */
+.card input,
+.card textarea{
+  width:100%;
+}
+
+.card textarea{
+  resize:none;
+}
+
+
+/* ===============================
+   BUTTON
+   =============================== */
+
+.SeeMore-btn{
+  display:inline-block;
+  margin-top:auto;
+
+  padding:.7rem 1.2rem;
+  background:var(--accent);
+  color:white;
+
+  text-decoration:none;
+  border-radius:8px;
+
+  font-weight:600;
+  font-size:.95rem;
+  transition:.3s;
+}
+
+/* hover animation */
+.SeeMore-btn:hover{
+  background:#a86514;
+  transform:scale(1.05);
+}
+
+
+/* ===============================
+   IMAGE SLIDER
+   =============================== */
+
+.slider{
+  position:relative;
+  overflow:hidden; /* hides extra images */
+}
+
+/* track that moves */
+.slides{
+  display:flex;
+  transition:transform .5s ease;
+  width:100%;
+}
+
+/* each image */
+.slide{
+  flex-shrink:0;
+  width:100%;
+  max-height:220px;
+  object-fit:contain;
+  margin:auto;
+}
+
+
+/* ===============================
+   SLIDER BUTTONS
+   =============================== */
+
+.prev,
+.next{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+
+  background:rgba(0,0,0,.5);
+  color:white;
+
+  border:none;
+  font-size:22px;
+  padding:.4rem .8rem;
+
+  cursor:pointer;
+  border-radius:4px;
+}
+
+.prev{ left:10px; }
+.next{ right:10px; }
+
+
+/* ===============================
+   FOOTER
+   =============================== */
+
+footer{
+  background:var(--header-bg);
+  color:white;
+  text-align:center;
+
+  padding:1rem;
+  font-size:.9rem;
+  margin-top:4rem;
+}
+
+
+/* ===============================
+   MOBILE (RESPONSIVE DESIGN)
+   =============================== */
+
+@media (max-width:760px){
+
+  /* stack cards instead of side-by-side */
+  .services{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .card{
+    width:90%;
+  }
+
+}
+
+
+/* ===============================
+   PROJECT / GALLERY
+   =============================== */
+
+/* project type layout */
+.projectType{
+  display:flex;
+  justify-content:center;
+  gap:2rem;
+  margin-top:2rem;
+  flex-wrap:wrap;
+}
+
+/* image grid */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:10px;
+}
+
+.gallery img{
+  width:100%;
+  border-radius:6px;
+  height:150px;
+  object-fit:cover;
+}
+
+/* slider container */
+#projectGallery{
+  margin-top:1rem;
+  max-width:400px;
+}
+
+/* slider images */
+#projectGallery .slide{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
